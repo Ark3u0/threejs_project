@@ -1,2 +1,2 @@
 # threejs_project
-Playing around FPS control in threejs.
+Playing around with FPS control in threejs.

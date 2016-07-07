@@ -2,7 +2,7 @@
 Playing around with FPS control in threejs.
 
 Requirements:
-- Node/NPM
+- Node 4/NPM 2+
 
 Instructions to Run:
 Before, first download all the required dependencies:

@@ -1,10 +1,10 @@
 class KeyboardInputController {
     constructor() {
-        this.currentKeyInQueue = undefined;
+        this.currentValueInQueue = undefined;
     }
 
     getCurrentKeyInQueue() {
-        return this.currentKeyInQueue;
+        return this.currentValueInQueue;
     }
 
     listenForInputs() {
@@ -36,11 +36,11 @@ class KeyboardInputController {
     }
 
     keyupHandler(keyboardEvent) {
-        this.currentKeyInQueue = undefined;
+        this.currentValueInQueue = undefined;
     }
 
     keydownHandler(keyboardEvent) {
-        this.currentKeyInQueue = this._getKeyMapping(keyboardEvent.keyCode);
+        this.currentValueInQueue = this._getKeyMapping(keyboardEvent.keyCode);
     }
 }
 

@@ -1,14 +1,17 @@
 /*
- * Written with reference to www.html5rocks.com/en/tutorials/pointerlock/intro/
+ * Written with reference to:
+ *  - www.html5rocks.com/en/tutorials/pointerlock/intro/
+ *  - http://threejs.org/examples/misc_controls_pointerlock.html
  */
 
 class PointerLockController {
-    constructor() {
+    constructor(options) {
         this.enablePointerLock = 'pointerLockElement' in document ||
                               'mozPointerLockElement' in document ||
                               'webkitPointerLockElement' in document;
         this.blocker = document.getElementById("blocker");
         this.instructions = document.getElementById("instructions");
+        this.mouseMoveHandler = options.mouseMoveHandler;
         if (this.enablePointerLock) {
             this.element = document.body;
         } else {
@@ -36,7 +39,7 @@ class PointerLockController {
     moveCallback(event) {
         let movementX = event.movementX || event.mozMovementX || event.webkitMovementX || 0;
         let movementY = event.movementY || event.mozMovementY || event.webkitMovementY || 0;
-        console.log("X:", movementX, "Y:", movementY);
+        this.mouseMoveHandler(movementX, movementY);
     }
 
     errorCallback(event) {

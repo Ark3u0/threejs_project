@@ -1,47 +1,23 @@
+import PointerLockController from './PointerLockController.es6';
+
 class MouseInputController {
-  constructor() {
-      this.currentKeyInQueue = undefined;
-  }
-
-  getCurrentKeyInQueue() {
-    return this.currentKeyInQueue;
-  }
-
-  listenForInputs() {
-    document.addEventListener('keydown', (event) => { this.keydownHandler(event)});
-    document.addEventListener('keyup', (event) => { this.keyupHandler(event)});
-  }
-
-  _getKeyMapping(keyCode) {
-    switch (keyCode) {
-      // LEFT
-      case 37:
-      case 65:
-        return "KEY_LEFT";
-      // RIGHT
-      case 39:
-      case 68:
-        return "KEY_RIGHT";
-      // UP
-      case 38:
-      case 87:
-        return "KEY_UP";
-      // DOWN
-      case 40:
-      case 83:
-        return "KEY_DOWN";
-      default:
-        return;
+    constructor() {
+        this.pointerLockController = new PointerLockController({mouseMoveHandler: (moveX, moveY) => this.mouseMoveHandler(moveX, moveY)});
+        this.currentValueInQueue = {moveX: 0, moveY: 0};
     }
-  }
 
-  keyupHandler(keyboardEvent) {
-    this.currentKeyInQueue = undefined;
-  }
+    mouseMoveHandler(moveX, moveY) {
+        this.currentValueInQueue = {moveX: moveX, moveY: moveY}
+    }
 
-  keydownHandler(keyboardEvent) {
-    this.currentKeyInQueue = this._getKeyMapping(keyboardEvent.keyCode);
-  }
+    getCurrentValueInQueue() {
+        return this.currentValueInQueue;
+    }
+
+    listenForInputs() {
+        this.pointerLockController.attach();
+    }
+
 }
 
 module.exports = MouseInputController;

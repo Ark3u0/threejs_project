@@ -3,11 +3,11 @@ import PointerLockController from './PointerLockController.es6';
 class MouseInputController {
     constructor() {
         this.pointerLockController = new PointerLockController({mouseMoveHandler: (moveX, moveY) => this.mouseMoveHandler(moveX, moveY)});
-        this.currentValueInQueue = {moveX: 0, moveY: 0};
+        this.currentValueInQueue = {MOUSE_X: 0, MOUSE_Y: 0};
     }
 
     mouseMoveHandler(moveX, moveY) {
-        this.currentValueInQueue = {moveX: moveX, moveY: moveY}
+        this.currentValueInQueue = {MOUSE_X: moveX, MOUSE_Y: moveY}
     }
 
     getCurrentValueInQueue() {

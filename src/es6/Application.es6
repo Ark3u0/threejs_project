@@ -1,6 +1,5 @@
 import ThreeJS from 'three';
-import KeyboardInputController from './InputControllers/KeyboardInputController.es6';
-import MouseInputController from './InputControllers/MouseInputController.es6';
+import InputController from './InputControllers/InputController.es6';
 
 class Application {
     constructor() {
@@ -11,11 +10,8 @@ class Application {
         this.renderer.setSize(window.innerWidth, window.innerHeight);
         this.renderer.setClearColor(0xffffff, 1.0);
 
-        this.keyboardInputController = new KeyboardInputController();
-        this.keyboardInputController.listenForInputs();
-
-        this.mouseInputController = new MouseInputController();
-        this.mouseInputController.listenForInputs();
+        this.inputController = new InputController();
+        this.inputController.listenForInputs();
 
         document.body.appendChild(this.renderer.domElement);
         this.addCubeToScene();
@@ -33,8 +29,8 @@ class Application {
     render() {
         requestAnimationFrame(() => this.render());
 
-        console.log(this.mouseInputController.getCurrentValueInQueue());
-        console.log(this.keyboardInputController.getCurrentKeyInQueue());
+        let input = this.inputController.getCurrentInputInQueue();
+        console.log(input);
 
         this.cube.rotation.x += 0.1;
         this.cube.rotation.y += 0.1;

@@ -1,18 +1,18 @@
 var path = require('path');
 
 var BUILD_DIR = path.resolve(__dirname, 'build');
-var APP_DIR = path.resolve(__dirname, 'src/es6');
+var CLIENT_DIR = path.resolve(__dirname, 'client/es6');
 
 module.exports = {
-  entry: APP_DIR + '/app.es6',
+  entry: CLIENT_DIR + '/app.es6',
   output: {
     path: BUILD_DIR,
-    filename: 'bundle.js'
+    filename: 'client.bundle.js'
   },
   module: {
     loaders: [
       { test : /\.es6?/,
-        include : APP_DIR,
+        include : CLIENT_DIR,
         loader : 'babel'
       }
     ]

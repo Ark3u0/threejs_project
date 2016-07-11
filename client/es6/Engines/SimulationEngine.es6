@@ -16,9 +16,9 @@ class SimulationEngine {
         // Initialize objects in object table
         this.objectTable = [];
 
-        let jsonLoader = new ThreeJS.JSONLoader();
-        jsonLoader.load(
-            'resources/models/popUpProjection.json',
+        let objectLoader = new ThreeJS.ObjectLoader();
+        objectLoader.load(
+            'models/popUpProjection.json',
             (geometry, materials) => this.onLoad(scene, geometry, materials)
         );
     }

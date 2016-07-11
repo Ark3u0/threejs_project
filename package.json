@@ -5,6 +5,13 @@
   "main": "index.js",
   "author": "Steven Garcia",
   "license": "ISC",
+  "scripts": {
+    "start": "node build/server.js",
+    "start-dev": "NODE_ENV=development node build/server.js",
+    "debug-start": "NODE_ENV=development node debug build/server.js",
+    "build": "node node_modules/gulp/bin/gulp.js",
+    "clean": "rm -rf build/*"
+  },
   "devDependencies": {
     "babel-loader": "^6.2.4",
     "babel-preset-es2015": "^6.9.0",
@@ -14,6 +21,7 @@
     "webpack-stream": "^3.2.0"
   },
   "dependencies": {
+    "express": "^4.14.0",
     "three": "^0.78.0"
   }
 }

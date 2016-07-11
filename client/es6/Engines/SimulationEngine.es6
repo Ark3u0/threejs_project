@@ -5,11 +5,25 @@ class SimulationEngine {
         this.initializeObjects(options.scene)
     }
 
-    onLoad(scene, geometry, materials) {
-        let material = new ThreeJS.MultiMaterial(materials);
-        let object = new ThreeJS.Mesh(geometry, material);
+    onLoad(scene, object) {
+        // This is placeholder until actual materials are applied
+        let materialObj = new ThreeJS.MeshBasicMaterial({
+            vertexColors: ThreeJS.FaceColors,
+            overdraw: 0.5
+        });
+
+        object.traverse((child) => {
+            if (child instanceof ThreeJS.Mesh) {
+                child.material = materialObj;
+            }
+        });
+
         this.objectTable.push(object);
         scene.add(object);
+
+        this.objectTable[0].position.x = 0;
+        this.objectTable[0].position.y = 0;
+        this.objectTable[0].position.z = 0;
     }
 
     initializeObjects(scene) {
@@ -17,10 +31,8 @@ class SimulationEngine {
         this.objectTable = [];
 
         let objectLoader = new ThreeJS.ObjectLoader();
-        objectLoader.load(
-            'models/popUpProjection.json',
-            (geometry, materials) => this.onLoad(scene, geometry, materials)
-        );
+        objectLoader.load('models/popUpProjection.json', (object) => this.onLoad(scene, object));
+
     }
 }
 

@@ -1,6 +1,5 @@
 import ThreeJS from 'three';
 import GameEngine from './GameEngine.es6';
-import InputController from './InputControllers/InputController.es6';
 
 class Application {
     constructor() {
@@ -26,7 +25,6 @@ class Application {
     }
 
     start() {
-        this.camera.position.z = 5;
         requestAnimationFrame((ts) => this.render(ts));
     }
 }

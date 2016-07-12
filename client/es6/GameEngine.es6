@@ -1,5 +1,5 @@
-import InputController from './InputControllers/InputController.es6';
-import SimulationEngine from './Engines/SimulationEngine.es6';
+import InputController from './Controllers/InputController.es6';
+import ModelManager from './Managers/ModelManager.es6';
 
 class GameEngine {
     constructor(options) {
@@ -8,11 +8,12 @@ class GameEngine {
         this.inputController.listenForInputs();
 
         // Initialize engines
-        this.simulationEngine = new SimulationEngine(options);
+        this.modelManager = new ModelManager(options);
     }
 
     loop(timeElapsed, scene, camera) {
         let input = this.inputController.getCurrentInputInQueue();
+        this.modelManager.update(input, camera);
     }
 
     //addCubeToScene() {

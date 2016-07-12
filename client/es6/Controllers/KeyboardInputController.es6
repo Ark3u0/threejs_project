@@ -42,12 +42,16 @@ class KeyboardInputController {
 
     keyupHandler(keyboardEvent) {
         let keyUp = this._getKeyMapping(keyboardEvent.keyCode);
-        this.currentValueInQueue = Object.assign({}, this.currentValueInQueue, {[keyUp]: false});
+        if (keyUp) {
+            this.currentValueInQueue = Object.assign({}, this.currentValueInQueue, {[keyUp]: false});
+        }
     }
 
     keydownHandler(keyboardEvent) {
         let keyDown = this._getKeyMapping(keyboardEvent.keyCode);
-        this.currentValueInQueue = Object.assign({}, this.currentValueInQueue, {[keyDown]: true});
+        if (keyDown) {
+            this.currentValueInQueue = Object.assign({}, this.currentValueInQueue, {[keyDown]: true});
+        }
     }
 }
 

@@ -11,10 +11,16 @@ Before, first download all the required dependencies:
 $ npm install
 `
 
-Then run gulp bundle to transpile es6 with babel and package with webpack:
+Then, build application before running:
 
 `
-$ gulp bundle
+$ npm run build
 `
 
-Lastly, you should open the index.html in either Chrome or Firefox (only two supported browser).
+Next, standup server application:
+
+`
+$ npm run start
+`
+
+Lastly, hit http://localhost:3000 from a ThreeJS and PointerLock compatible browser.

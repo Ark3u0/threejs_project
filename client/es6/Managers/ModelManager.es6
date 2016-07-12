@@ -4,7 +4,7 @@ import Player from '../Models/Player.es6';
 
 class ModelManager {
     constructor(options) {
-        this.player = new Player(options);
+        this.player = new Player({scene: options.scene, camera: options.camera});
         this.initializeModelsInScene(options.scene)
     }
 
@@ -37,9 +37,9 @@ class ModelManager {
         objectLoader.load('models/popUpProjection.json', (object) => this.onLoad(scene, object));
     }
 
-    update(input, camera) {
+    update(input) {
         // First update player
-        this.player.update(input, camera);
+        this.player.update(input);
 
         // Update rest of models and world state
         // ...

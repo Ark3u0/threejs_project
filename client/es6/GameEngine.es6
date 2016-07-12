@@ -8,22 +8,13 @@ class GameEngine {
         this.inputController.listenForInputs();
 
         // Initialize engines
-        this.modelManager = new ModelManager(options);
+        this.modelManager = new ModelManager({scene: options.scene, camera: options.camera});
     }
 
     loop(timeElapsed, scene, camera) {
         let input = this.inputController.getCurrentInputInQueue();
-        this.modelManager.update(input, camera);
+        this.modelManager.update(input);
     }
-
-    //addCubeToScene() {
-  //    let geometry = new ThreeJS.BoxGeometry(1, 1, 1);
-  //    let material = new ThreeJS.MeshBasicMaterial({
-  //       color: 0x00ff00
-  //    });
-  //    this.cube = new ThreeJS.Mesh(geometry, material);
-  //    this.scene.add(this.cube);
-  //}
 }
 
 module.exports = GameEngine;

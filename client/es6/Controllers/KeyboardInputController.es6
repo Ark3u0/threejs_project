@@ -40,6 +40,15 @@ class KeyboardInputController {
         }
     }
 
+    getZeroQueue() {
+        return {
+            KEY_LEFT: false,
+            KEY_RIGHT: false,
+            KEY_UP: false,
+            KEY_DOWN: false
+        };
+    }
+
     keyupHandler(keyboardEvent) {
         let keyUp = this._getKeyMapping(keyboardEvent.keyCode);
         if (keyUp) {

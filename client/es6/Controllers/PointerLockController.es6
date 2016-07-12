@@ -5,18 +5,21 @@
  */
 
 class PointerLockController {
-    constructor(options) {
+    constructor() {
         this.enablePointerLock = 'pointerLockElement' in document ||
                               'mozPointerLockElement' in document ||
                               'webkitPointerLockElement' in document;
         this.blocker = document.getElementById("blocker");
         this.instructions = document.getElementById("instructions");
-        this.mouseMoveHandler = options.mouseMoveHandler;
         if (this.enablePointerLock) {
             this.element = document.body;
         } else {
             this.instructions.innerHTML = "Your browser doesn't seem to support Pointer Lock API";
         }
+    }
+
+    setMouseMoveHandler(mouseMoveHandler) {
+        this.mouseMoveHandler = mouseMoveHandler;
     }
 
     changeCallback() {

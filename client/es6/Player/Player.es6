@@ -6,7 +6,6 @@ import ThreeJS from 'three';
  */
 
 const INVERT_VERTICAL = true;
-const SMOOTHING = true;
 const VERTICAL_ANGLE_BOUND = 60.0;
 const MOUSE_SENSITIVITY_X = 0.001;
 const MOUSE_SENSITIVITY_Y = 0.001;
@@ -15,6 +14,7 @@ class Player {
     constructor(options) {
         this.camera = options.camera;
         this.scene = options.scene;
+        this.collisionManager = options.collisionManager;
         this.camera.rotation.set(0, 0, 0);
 
         this.playerTarget = new ThreeJS.Object3D();
@@ -36,7 +36,8 @@ class Player {
     }
 
     update(input) {
-        this.updateByTranslation(input);
+        let collisionVectors = this.collisionManager.getCollisions(this.playerTarget);
+        this.updateByTranslation(input, collisionVectors);
         this.updateByRotation(input);
     }
 
@@ -62,7 +63,9 @@ class Player {
         quaternion.x = Math.tan(0.5 * (Math.PI / 180.0) * angleX);
     }
 
-    updateByTranslation(input) {
+    updateByTranslation(input, collisionVectors) {
+        console.log(collisionVectors);
+
         const strafe_right = input.KEY_RIGHT ? 1 : 0;
         const strafe_left = input.KEY_LEFT ? -1 : 0;
         const forward = input.KEY_UP ? -1 : 0;
@@ -74,8 +77,6 @@ class Player {
         this.playerTarget.translateX(velocity_x);
         this.playerTarget.translateZ(velocity_y);
     }
-
-
 }
 
 module.exports = Player;

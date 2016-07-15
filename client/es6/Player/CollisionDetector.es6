@@ -17,7 +17,8 @@ class CollisionManager {
     }
 
     getOutcastRays(player) {
-        let currentDirectionVector = player.getWorldDirection();
+        //let currentDirectionVector = player.getWorldDirection();
+        let currentDirectionVector = new ThreeJS.Vector3(0,0,1);
 
         return [
             new ThreeJS.Vector3().copy(currentDirectionVector),
@@ -35,22 +36,33 @@ class CollisionManager {
             new ThreeJS.Vector3().copy(currentDirectionVector).applyEuler(new ThreeJS.Euler(0, 12 * Math.PI / 8, 0, "YXZ")),
             new ThreeJS.Vector3().copy(currentDirectionVector).applyEuler(new ThreeJS.Euler(0, 13 * Math.PI / 8, 0, "YXZ")),
             new ThreeJS.Vector3().copy(currentDirectionVector).applyEuler(new ThreeJS.Euler(0, 14 * Math.PI / 8, 0, "YXZ")),
-            new ThreeJS.Vector3().copy(currentDirectionVector).applyEuler(new ThreeJS.Euler(0, 15 * Math.PI / 8, 0, "YXZ")),
+            new ThreeJS.Vector3().copy(currentDirectionVector).applyEuler(new ThreeJS.Euler(0, 15 * Math.PI / 8, 0, "YXZ"))
         ];
     }
 
-    getCollisions(player) {
+    getCollisionNormals(player) {
         let rays = this.getOutcastRays(player);
-        let directionsWithCollisions = [];
+        let collisionNormals = [];
         let collisions;
         for (let i = 0; i < rays.length; i++) {
             this.caster.set(player.position, rays[i]);
             collisions = this.caster.intersectObjects(this.collidableList);
             if (collisions.length > 0 && collisions[0].distance <= COLLISION_DISTANCE) {
-                directionsWithCollisions.push(rays[i]);
+                let collisionNormal = collisions[0].face.normal;
+                collisionNormals.push(collisionNormal);
             }
         }
-        return directionsWithCollisions;
+        return this.removeDuplicates(collisionNormals);
+    }
+
+    removeDuplicates(normals) {
+        let uniqueNormals = [];
+        normals.forEach((normal) => {
+           if (uniqueNormals.indexOf(normal) === -1) {
+               uniqueNormals.push(normal);
+           }
+        });
+        return uniqueNormals;
     }
 }
 

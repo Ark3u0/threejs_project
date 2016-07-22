@@ -6,7 +6,7 @@ const CLOCK_INTERVAL = 1000 / 60; // TARGET 60 FPS
 class Application {
     constructor() {
         this.scene = new ThreeJS.Scene();
-        this.camera = new ThreeJS.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 1000);
+        this.camera = new ThreeJS.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.5, 1000);
         this.renderer = new ThreeJS.WebGLRenderer();
         this.renderer.setSize(window.innerWidth, window.innerHeight);
         this.renderer.setClearColor(0x0, 1.0);

@@ -2,22 +2,27 @@ import ThreeJS from 'three';
 
 const PENUMBRA = 1;
 const DECAY = 2;
-const INTENSITY = 0.01;
-const DISTANCE = 0.5;
-const COLOR = 0xffff00;
-const ANGLE = 0.00001;
+const INTENSITY = 1;
+const COLOR = 0xffffff;
+const ANGLE = Math.PI / 4;
 
-const TARGET_VISIBLE = false;
+const TARGET_VISIBLE = true;
 
 class LightManager {
     constructor(options) {
         this.scene = options.scene;
-        this.initializeLightsInScene();
+        this.initializeSpotlightsInScene();
+        //this.initializeAmbientLightInScene();
     }
 
-    initializeLightsInScene() {
+    initializeAmbientLightInScene() {
+        let ambientLight = new ThreeJS.AmbientLight({color: COLOR, intensity: 0.01});
+        this.scene.add(ambientLight);
+    }
+
+    initializeSpotlightsInScene() {
         // SCREEN 1
-        let spotLight1 = new ThreeJS.SpotLight({color: COLOR, angle: ANGLE, penumbra: PENUMBRA, decay: DECAY, intensity: INTENSITY, distance: DISTANCE});
+        let spotLight1 = new ThreeJS.SpotLight(COLOR, INTENSITY);
 
         let geometry1 = new ThreeJS.SphereGeometry(0.1, 5, 5);
         let material1 = new ThreeJS.MeshBasicMaterial({color: 0xffff00});
@@ -28,13 +33,17 @@ class LightManager {
 
         spotLight1.position.set(-1.3, 8, 8.9);
         spotLight1.castShadow = true;
+        spotLight1.angle = ANGLE;
+        spotLight1.penumbra = PENUMBRA;
+        spotLight1.decay = DECAY;
+
         spotLight1.shadow.mapSize.width = 1024;
         spotLight1.shadow.mapSize.height = 1024;
         this.scene.add(spotLight1);
         this.scene.add(spotLight1.target);
 
         // SCREEN 2
-        let spotLight2 = new ThreeJS.SpotLight({color: COLOR, angle: ANGLE, penumbra: PENUMBRA, decay: DECAY, intensity: INTENSITY, distance: DISTANCE});
+        let spotLight2 = new ThreeJS.SpotLight(COLOR, INTENSITY);
 
         let geometry2 = new ThreeJS.SphereGeometry(0.1, 5, 5);
         let material2 = new ThreeJS.MeshBasicMaterial({color: 0xffff00});
@@ -45,13 +54,17 @@ class LightManager {
 
         spotLight2.position.set(3.8, 8, 4.2);
         spotLight2.castShadow = true;
+        spotLight2.angle = ANGLE;
+        spotLight2.penumbra = PENUMBRA;
+        spotLight2.decay = DECAY;
+
         spotLight2.shadow.mapSize.width = 1024;
         spotLight2.shadow.mapSize.height = 1024;
         this.scene.add(spotLight2);
         this.scene.add(spotLight2.target);
 
         // SCREEN 3
-        let spotLight3 = new ThreeJS.SpotLight({color: COLOR, angle: ANGLE, penumbra: PENUMBRA, decay: DECAY, intensity: INTENSITY, distance: DISTANCE});
+        let spotLight3 = new ThreeJS.SpotLight(COLOR, INTENSITY);
 
         let geometry3 = new ThreeJS.SphereGeometry(0.1, 5, 5);
         let material3 = new ThreeJS.MeshBasicMaterial({color: 0xeeee00});
@@ -62,13 +75,17 @@ class LightManager {
 
         spotLight3.position.set(-1.3, 8, 2);
         spotLight3.castShadow = true;
+        spotLight3.angle = ANGLE;
+        spotLight3.penumbra = PENUMBRA;
+        spotLight3.decay = DECAY;
+
         spotLight3.shadow.mapSize.width = 1024;
         spotLight3.shadow.mapSize.height = 1024;
         this.scene.add(spotLight3);
         this.scene.add(spotLight3.target);
 
         // SCREEN 4
-        let spotLight4 = new ThreeJS.SpotLight({color: COLOR, angle: ANGLE, penumbra: PENUMBRA, decay: DECAY, intensity: INTENSITY, distance: DISTANCE});
+        let spotLight4 = new ThreeJS.SpotLight(COLOR, INTENSITY);
 
         let geometry4 = new ThreeJS.SphereGeometry(0.1, 5, 5);
         let material4 = new ThreeJS.MeshBasicMaterial({color: 0xeeee00});
@@ -79,13 +96,17 @@ class LightManager {
 
         spotLight4.position.set(-6.4, 8, -3.2);
         spotLight4.castShadow = true;
+        spotLight4.angle = ANGLE;
+        spotLight4.penumbra = PENUMBRA;
+        spotLight4.decay = DECAY;
+
         spotLight4.shadow.mapSize.width = 1024;
         spotLight4.shadow.mapSize.height = 1024;
         this.scene.add(spotLight4);
         this.scene.add(spotLight4.target);
 
         //// SCREEN 5
-        let spotLight5 = new ThreeJS.SpotLight({color: COLOR, angle: ANGLE, penumbra: PENUMBRA, decay: DECAY, intensity: INTENSITY, distance: DISTANCE});
+        let spotLight5 = new ThreeJS.SpotLight(COLOR, INTENSITY);
 
         let geometry5 = new ThreeJS.SphereGeometry(0.1, 5, 5);
         let material5 = new ThreeJS.MeshBasicMaterial({color: 0xeeee00});
@@ -96,6 +117,10 @@ class LightManager {
 
         spotLight5.position.set(-1.3, 8, -5);
         spotLight5.castShadow = true;
+        spotLight5.angle = ANGLE;
+        spotLight5.penumbra = PENUMBRA;
+        spotLight5.decay = DECAY;
+
         spotLight5.shadow.mapSize.width = 1024;
         spotLight5.shadow.mapSize.height = 1024;
         this.scene.add(spotLight5);

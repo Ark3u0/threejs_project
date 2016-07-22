@@ -10,6 +10,10 @@ class Application {
         this.renderer = new ThreeJS.WebGLRenderer();
         this.renderer.setSize(window.innerWidth, window.innerHeight);
         this.renderer.setClearColor(0x0, 1.0);
+        this.renderer.shadowMap.enabled = true;
+        this.renderer.shadowMap.type = ThreeJS.PCFSoftShadowMap;
+        this.renderer.gammaInput = true;
+        this.renderer.gammaOutput = true;
 
         this.game = new GameEngine({scene: this.scene, camera: this.camera});
 

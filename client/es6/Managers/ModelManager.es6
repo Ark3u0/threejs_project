@@ -17,15 +17,11 @@ class ModelManager {
 
     onLoad(object) {
         // This is placeholder until actual materials are applied
-        let materialObj = new ThreeJS.MeshBasicMaterial({
-            //vertexColors: ThreeJS.FaceColors,
-            //overdraw: 0.5,
-            color: 0xd20000
-        });
+        let material = new ThreeJS.MeshPhongMaterial({color: 0xd3d3d3, specular: 0x009900, shininess: 30, shading: ThreeJS.FlatShading});
 
         object.traverse((child) => {
             if (child instanceof ThreeJS.Mesh) {
-                child.material = materialObj;
+                child.material = material;
                 this.collisionManager.pushToCollidableList(child);
             }
         });

@@ -16,6 +16,7 @@ class GameEngine {
 
                 this.modelManager.initializeModelsInScene();
                 this.lightManager.initializeSpotlightsInScene();
+                this.lightManager.initializeDirectionalLightInScene();
                 this.lightManager.initializeAmbientLightInScene();
             });
         });

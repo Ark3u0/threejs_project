@@ -12,11 +12,12 @@ class LightManager {
     constructor(options) {
         this.scene = options.scene;
         this.initializeSpotlightsInScene();
-        //this.initializeAmbientLightInScene();
+        this.initializeAmbientLightInScene();
     }
 
     initializeAmbientLightInScene() {
-        let ambientLight = new ThreeJS.AmbientLight({color: COLOR, intensity: 0.01});
+        let ambientLight = new ThreeJS.AmbientLight(COLOR);
+        ambientLight.intensity = 0.05;
         this.scene.add(ambientLight);
     }
 

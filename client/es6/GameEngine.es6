@@ -1,5 +1,6 @@
 import InputController from './Controllers/InputController.es6';
 import ModelManager from './Managers/ModelManager.es6';
+import LightManager from './Managers/LightManager.es6';
 
 class GameEngine {
     constructor(options) {
@@ -9,6 +10,7 @@ class GameEngine {
 
         // Initialize engines
         this.modelManager = new ModelManager({scene: options.scene, camera: options.camera});
+        this.lightManager = new LightManager({scene: options.scene});
     }
 
     loop(timeElapsed, scene, camera) {

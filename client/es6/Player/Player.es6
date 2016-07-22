@@ -10,7 +10,7 @@ const VERTICAL_ANGLE_BOUND = 60.0;
 const MOUSE_SENSITIVITY_X = 0.001;
 const MOUSE_SENSITIVITY_Y = 0.001;
 const VELOCITY = 0.1;
-const NO_MOTION_DELTA = 0.5;
+const COLLISION_SMOOTHING_DELTA = 0.5;
 
 class Player {
     constructor(options) {
@@ -96,18 +96,14 @@ class Player {
         reductionVector.normalize();
         translationVector.normalize();
 
-        let finalTranslation = new ThreeJS.Vector3(this.zeroIfInDelta(translationVector.x + reductionVector.x),
-          0,
-          this.zeroIfInDelta(translationVector.z + reductionVector.z));
-
-        console.log(finalTranslation);
+        let finalTranslation = new ThreeJS.Vector3(this.zeroIfInDelta(translationVector.x + reductionVector.x), 0, this.zeroIfInDelta(translationVector.z + reductionVector.z));
 
         this.playerTarget.position.x = this.playerTarget.position.x + (finalTranslation.x * VELOCITY);
         this.playerTarget.position.z = this.playerTarget.position.z + (finalTranslation.z * VELOCITY);
     }
 
     zeroIfInDelta(value) {
-        return (value < NO_MOTION_DELTA && value > -NO_MOTION_DELTA) ? 0 : value;
+        return (value < COLLISION_SMOOTHING_DELTA && value > -COLLISION_SMOOTHING_DELTA) ? 0 : value;
     }
 }
 

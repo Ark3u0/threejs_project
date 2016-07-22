@@ -17,7 +17,6 @@ class CollisionManager {
     }
 
     getOutcastRays(player) {
-        //let currentDirectionVector = player.getWorldDirection();
         let currentDirectionVector = new ThreeJS.Vector3(0,0,1);
 
         return [

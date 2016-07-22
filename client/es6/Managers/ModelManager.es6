@@ -37,15 +37,36 @@ class ModelManager {
         });
     }
 
-    createScreenModel(object) {
-        // This is placeholder until actual materials are applied
-        let material = new ThreeJS.MeshPhongMaterial({color: 0xd3d3d3, specular: 0x009900, shininess: 30, shading: ThreeJS.FlatShading});
+    createScreenModelChildMaterial(child) {
+        if (child.name.includes("Aluminum")) {
+            return new ThreeJS.MeshPhongMaterial({
+                shininess: 80,
+                specular: 0x333333,
+                map: this.textureManager.getTexture("aluminum")
+            });
+        } else if (child.name.includes("PLYWOOD")) {
+            return new ThreeJS.MeshPhongMaterial({
+                shininess: 10,
+                specular: 0x111111,
+                map: this.textureManager.getTexture("plywood")
+            });
+        } else if (child.name.includes("Cross_Bracing")) {
+            return new ThreeJS.MeshPhongMaterial({
+                shininess: 40,
+                specular: 0x555555,
+                map: this.textureManager.getTexture("wire")
+            });
+        } else {
+            // This is placeholder unless actual materials are applied
+            return new ThreeJS.MeshPhongMaterial({color: 0xd3d3d3, specular: 0x009900, shininess: 30, shading: ThreeJS.FlatShading});
+        }
+    }
 
+    createScreenModel(object) {
         let screenModel = this.getModel("popUpProjection");
         screenModel.traverse((child) => {
             if (child instanceof ThreeJS.Mesh) {
-                console.log(child.name);
-                child.material = material;
+                child.material = this.createScreenModelChildMaterial(child);
                 this.collisionManager.pushToCollidableList(child);
             }
         });

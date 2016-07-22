@@ -17,7 +17,7 @@ class LightManager {
 
     initializeAmbientLightInScene() {
         let ambientLight = new ThreeJS.AmbientLight(COLOR);
-        ambientLight.intensity = 0.05;
+        ambientLight.intensity = 0.01;
         this.scene.add(ambientLight);
     }
 

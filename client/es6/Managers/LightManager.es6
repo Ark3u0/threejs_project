@@ -2,9 +2,9 @@ import ThreeJS from 'three';
 
 const PENUMBRA = 1;
 const DECAY = 2;
-const INTENSITY = 1;
+const INTENSITY = 0.01;
 const DISTANCE = 0.5;
-const COLOR = 0xffffff;
+const COLOR = 0xffff00;
 const ANGLE = 0.00001;
 
 const TARGET_VISIBLE = false;

@@ -30,7 +30,7 @@ class ModelManager {
             }
         });
 
-        object.position.set(-5, 1, 7.5);
+        object.position.set(-5, 0.5, 7.5);
         this.scene.add(object);
     }
 

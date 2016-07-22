@@ -1,16 +1,24 @@
 import InputController from './Controllers/InputController.es6';
 import ModelManager from './Managers/ModelManager.es6';
 import LightManager from './Managers/LightManager.es6';
+import TextureManager from './Managers/TextureManager.es6';
 
 class GameEngine {
     constructor(options) {
-        // Initialize controllers
+        this.textureManager = new TextureManager();
+        this.modelManager = new ModelManager({scene: options.scene, camera: options.camera, textureManager: this.textureManager});
         this.inputController = new InputController();
-        this.inputController.listenForInputs();
-
-        // Initialize engines
-        this.modelManager = new ModelManager({scene: options.scene, camera: options.camera});
         this.lightManager = new LightManager({scene: options.scene});
+
+        this.textureManager.loadExternalTextureMapsToMemory(() => {
+            this.modelManager.loadExternalModelsToMemory(() => {
+                this.inputController.listenForInputs();
+
+                this.modelManager.initializeModelsInScene();
+                this.lightManager.initializeSpotlightsInScene();
+                this.lightManager.initializeAmbientLightInScene();
+            });
+        });
     }
 
     loop(timeElapsed, scene, camera) {

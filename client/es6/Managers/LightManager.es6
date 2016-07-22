@@ -11,8 +11,6 @@ const TARGET_VISIBLE = true;
 class LightManager {
     constructor(options) {
         this.scene = options.scene;
-        this.initializeSpotlightsInScene();
-        this.initializeAmbientLightInScene();
     }
 
     initializeAmbientLightInScene() {

@@ -2,53 +2,70 @@ import ThreeJS from 'three';
 import Player from '../Player/Player.es6';
 import CollisionDetector from './../Player/CollisionDetector.es6';
 
-
 const ROOM_SCALE = 30;
 
 class ModelManager {
     constructor(options) {
-        this.textureLoader = new ThreeJS.TextureLoader();
+        this.objectLoader = new ThreeJS.ObjectLoader();
+        this.modelsToLoad = ["popUpProjection"];
+        this.loadCounter = this.modelsToLoad.length;
+        this.modelCollection = {};
+
+        this.textureManager = options.textureManager;
         this.collisionManager = new CollisionDetector();
         this.player = new Player({scene: options.scene, camera: options.camera, collisionManager: this.collisionManager});
         this.scene = options.scene;
-
-        this.initializeModelsInScene();
     }
 
-    onLoad(object) {
+    getModel(modelName) {
+        return this.modelCollection[modelName];
+    }
+
+    loadExternalModelsToMemory(callback) {
+        const evaluateDone = () => {
+            if (this.loadCounter === 0) {
+                callback();
+            }
+        };
+
+        this.modelsToLoad.forEach((modelName) => {
+            this.objectLoader.load(`models/${modelName}.json`, (textureData) => {
+                this.modelCollection[modelName] = textureData;
+                this.loadCounter--;
+                evaluateDone();
+            });
+        });
+    }
+
+    createScreenModel(object) {
         // This is placeholder until actual materials are applied
         let material = new ThreeJS.MeshPhongMaterial({color: 0xd3d3d3, specular: 0x009900, shininess: 30, shading: ThreeJS.FlatShading});
 
-        object.traverse((child) => {
+        let screenModel = this.getModel("popUpProjection");
+        screenModel.traverse((child) => {
             if (child instanceof ThreeJS.Mesh) {
+                console.log(child.name);
                 child.material = material;
                 this.collisionManager.pushToCollidableList(child);
             }
         });
-
-        object.position.set(-5, 0.5, 7.5);
-        this.scene.add(object);
+        screenModel.position.set(-5, 0.5, 7.5);
+        this.scene.add(screenModel);
     }
 
     initializeModelsInScene() {
-        // Load model
-        let objectLoader = new ThreeJS.ObjectLoader();
-        objectLoader.load('models/popUpProjection.json', (object) => this.onLoad(object));
-
-        // Create floor and walls
+        this.createScreenModel();
         this.createFloor();
         this.createWalls();
     }
 
     createFloor() {
-        this.textureLoader.load('images/dark_wood_floor.jpg', (texture) => {
-            let geometry = new ThreeJS.BoxGeometry(ROOM_SCALE, 1, ROOM_SCALE);
-            let material = new ThreeJS.MeshPhongMaterial({map: texture});
-            let floor = new ThreeJS.Mesh(geometry, material);
-            floor.name = "FLOOR";
-            this.collisionManager.pushToCollidableList(floor);
-            this.scene.add(floor)
-        });
+        let geometry = new ThreeJS.BoxGeometry(ROOM_SCALE, 1, ROOM_SCALE);
+        let material = new ThreeJS.MeshPhongMaterial({map: this.textureManager.getTexture("floor")});
+        let floor = new ThreeJS.Mesh(geometry, material);
+        floor.name = "FLOOR";
+        this.collisionManager.pushToCollidableList(floor);
+        this.scene.add(floor)
     }
 
     createWalls() {
